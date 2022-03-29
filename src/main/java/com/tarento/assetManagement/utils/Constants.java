@@ -1,7 +1,9 @@
 package com.tarento.assetManagement.utils;
 
+import java.util.List;
+
 public class Constants {
 
-	public static final String TYPE = "LAPTOP";
-	public static final String STATUS = "GOOD";	
+    private static List<String> type = List.of("LAPTOP", "MOBILE", "CHARGER", "DESKTOP", "CPU");
+    private static List<String> status = List.of("GOOD","DAMAGED","LOST");
 }

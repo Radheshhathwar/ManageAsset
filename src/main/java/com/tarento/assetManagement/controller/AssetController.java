@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/org/admin")
 public class AssetController {
 		
 		private static Logger logger = LogManager.getLogger(AssetController.class.getSimpleName());
@@ -33,8 +33,7 @@ public class AssetController {
 					return ResponseEntity.ok(asset);
 				}
 			} catch (Exception E) {
-//				E.printStackTrace();
-				System.out.println("Error while asset");
+				logger.info("Error while getting asset details");
 			}
 			return ResponseEntity.notFound().build();
 		}

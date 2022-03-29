@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 public class Asset {
 
 	private Integer id;
-	private String type;//enum vales
+	private String type;
 	private String description;
 	private String brandName;
 	private String uniqueNumber;
 	private String modelNumber;
 	private Date purchaseDate;
-	private String status;//enum values
+	private String status;
 	private boolean warrantyExists;
 	private Date warrantyEndDate;
 	private Integer owner;

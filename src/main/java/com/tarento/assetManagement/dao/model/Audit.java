@@ -1,25 +1,18 @@
 package com.tarento.assetManagement.dao.model;
 
-import org.hibernate.mapping.List;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
 @Table(name = "auditDetails",schema = "assetManagement")
 public class Audit {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private Integer assetId;
     private Date auditDate;
     private Integer auditedBy;
     private String comment;
-
-
-    public Audit() {
-
-    }
 
     public Integer getId() {
         return id;
@@ -27,6 +20,14 @@ public class Audit {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getAssetId() {
+        return assetId;
+    }
+
+    public void setAssetId(Integer assetId) {
+        this.assetId = assetId;
     }
 
     public Date getAuditDate() {
@@ -52,11 +53,5 @@ public class Audit {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-    public Audit(Integer id, Date auditDate, Integer auditedBy, String comment) {
-        this.id = id;
-        this.auditDate = auditDate;
-        this.auditedBy = auditedBy;
-        this.comment = comment;
-    }
 }
+

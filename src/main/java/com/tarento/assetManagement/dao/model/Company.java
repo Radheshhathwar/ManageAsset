@@ -7,22 +7,18 @@ import javax.persistence.*;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer branchId;
+    private Integer CompanyId;
     private String companyName;
     private String description;
     private String location;
     private String branchName;
 
-
-    public Company() {
+    public Integer getCompanyId() {
+        return CompanyId;
     }
 
-    public Company(String companyName, String description, String location, String branchName, Integer branchId) {
-        this.companyName = companyName;
-        this.description = description;
-        this.location = location;
-        this.branchName = branchName;
-        this.branchId = branchId;
+    public void setCompanyId(Integer companyId) {
+        CompanyId = companyId;
     }
 
     public String getCompanyName() {
@@ -56,14 +52,4 @@ public class Company {
     public void setBranchName(String branchName) {
         this.branchName = branchName;
     }
-
-    public Integer getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(Integer branchId) {
-        this.branchId = branchId;
-    }
-
-
 }

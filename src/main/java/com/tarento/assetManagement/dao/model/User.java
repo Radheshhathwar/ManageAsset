@@ -12,10 +12,6 @@ public class User {
     private String email;
     private String phone;
 
-    public User() {
-
-    }
-
     public Integer getId() {
         return id;
     }
@@ -46,17 +42,5 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public User(Integer id, String name, String email, String phone) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-    }
-
-    @Override
-    public String toString() {
-        return "Id: "+getId()+" Name: "+getName()+" Email: "+getEmail()+" Phone: "+getPhone();
     }
 }

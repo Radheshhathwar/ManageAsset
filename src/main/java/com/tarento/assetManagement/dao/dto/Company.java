@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Company {
 
+	private Integer CompanyId;
 	private String companyName;
 	private String description;
 	private String location;
 	private String branchName;
-	private Integer branchId;
+
 }

@@ -10,29 +10,17 @@ import java.util.Date;
 public class Asset implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-    @Column(name = "type")
-    private String type;//enum vales
-    @Column(name ="description" )
+    private String type;
     private String description;
-    @Column(name ="brandName")
     private String brandName;
-    @Column(name ="uniqueNumber")
     private String uniqueNumber;
-    @Column(name ="modelNumber")
     private String modelNumber;
-    @Column(name ="purchaseDate")
     private Date purchaseDate;
-    @Column(name ="status")
-    private String status;//enum values
-    @Column(name ="warrantyExists")
-    private Boolean warrantyExists;
-    @Column(name ="warrantyEndDate")
+    private String status;
+    private boolean warrantyExists;
     private Date warrantyEndDate;
-    @Column(name ="owner")
     private Integer owner;
-
 
     public Integer getId() {
         return id;
@@ -120,13 +108,6 @@ public class Asset implements Serializable {
 
     public void setOwner(Integer owner) {
         this.owner = owner;
-    }
-
-    @Override
-    public String toString() {
-        return "Id " + getId() + " Type " + getType() + " Description " + getDescription() + " Model number " + getModelNumber() +
-                " Unique number " + getUniqueNumber() + " Purchase date " + getPurchaseDate() + " Warranty exists "
-                + getWarrantyExists() + " Warranty end date " + getWarrantyEndDate() + " Status " + getStatus() + " Owner " + getOwner();
     }
 }
 

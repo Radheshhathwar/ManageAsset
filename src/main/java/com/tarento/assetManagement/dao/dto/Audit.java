@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Audit {
 
 	private Integer id;
+	private Integer assetId;
 	private Date auditDate;
 	private Integer auditedBy;
 	private String comment;
