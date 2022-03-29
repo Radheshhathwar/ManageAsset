@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "auditDetails",schema = "assetManagement")
 public class Audit {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer assetId;
     private Date auditDate;

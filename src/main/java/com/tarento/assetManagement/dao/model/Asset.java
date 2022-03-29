@@ -22,6 +22,7 @@ public class Asset implements Serializable {
     private Date warrantyEndDate;
     private Integer owner;
 
+
     public Integer getId() {
         return id;
     }

@@ -1,6 +1,6 @@
 package com.tarento.assetManagement.controller;
 
-import com.tarento.assetManagement.dao.dto.Asset;
+import com.tarento.assetManagement.dao.model.Asset;
 import com.tarento.assetManagement.service.AssetService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,9 +26,9 @@ public class AssetController {
 		 */
 		@GetMapping("/asset/{id}")
 		public ResponseEntity<Asset> getAssetDetails(@PathVariable("id") Integer id) {
-			logger.info("Enter into Get asset Details");
+			logger.info("Enter to get asset details");
 			try {
-				com.tarento.assetManagement.dao.dto.Asset asset = assetService.getAssetDetails(id);
+				com.tarento.assetManagement.dao.model.Asset asset = assetService.getAssetDetails(id);
 				if (asset != null) {
 					return ResponseEntity.ok(asset);
 				}

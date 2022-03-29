@@ -1,7 +1,7 @@
 package com.tarento.assetManagement.provider;
 
-import com.tarento.assetManagement.dao.dto.Asset;
 import com.tarento.assetManagement.dao.mapper.AssetMapper;
+import com.tarento.assetManagement.dao.model.Asset;
 import com.tarento.assetManagement.dao.repository.AssetRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

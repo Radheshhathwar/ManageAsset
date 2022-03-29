@@ -1,5 +1,5 @@
 FROM openjdk:11
-COPY . /usr/src/main
-WORKDIR /usr/src/main
-RUN javac Hello.java
-CMD ["java", "Hello"]
+WORKDIR C:/Users/test/IdeaProjects/ManageAsset/src/main/java/com/tarento/assetManagement
+RUN javac Application.java
+CMD ["java", "Application"]
+EXPOSE 8084
