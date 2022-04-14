@@ -1,25 +1,39 @@
 package com.tarento.assetManagement.dao.model;
 
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@DynamicUpdate
 @Table(name = "assetDetails",schema = "assetManagement")
 public class Asset implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false,updatable = false)
     private Integer id;
+    @Column(name = "type", nullable = false)
     private String type;
+    @Column(name = "description", nullable = false)
     private String description;
+    @Column(name = "brandName", nullable = false,updatable = false)
     private String brandName;
+    @Column(name = "uniqueNumber", nullable = false,updatable = false)
     private String uniqueNumber;
+    @Column(name = "modelNumber", nullable = false,updatable = false)
     private String modelNumber;
+    @Column(name = "purchaseDate", nullable = false,updatable = false)
     private Date purchaseDate;
+    @Column(name = "status", nullable = false)
     private String status;
+    @Column(name="warrantyExists",nullable = false)
     private boolean warrantyExists;
+    @Column(name = "warrantyEndDate",nullable = false)
     private Date warrantyEndDate;
+    @Column(name = "owner",nullable = false)
     private Integer owner;
 
 
