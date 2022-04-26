@@ -1,6 +1,7 @@
 package com.tarento.assetManagement.service;
 
-import com.tarento.assetManagement.dao.model.UpdateAsset;
+import com.tarento.assetManagement.dao.dto.Assign;
+import com.tarento.assetManagement.dao.dto.UpdateAsset;
 import com.tarento.assetManagement.dao.model.Asset;
 import com.tarento.assetManagement.provider.AssetProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,10 @@ import java.util.List;
         public Asset updateAssetById(Integer id, UpdateAsset updateAsset) throws Exception {
             return assetProvider.updateAssetById(id,updateAsset);
         }
-        public List<Asset> getLostDamagedAsset(String status) throws Exception{
-            return assetProvider.getLostDamagedAsset(status);
+        public List<Asset> getProblemeticAsset(String status) throws Exception{
+            return assetProvider.getProblemeticAsset(status);
         }
-
+        public Asset assignAsset(Assign assign) {
+        	return assetProvider.assignAsset(assign);
+        }
     }

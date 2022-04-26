@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@SuppressWarnings("serial")
 @Entity
 @DynamicUpdate
 @Table(name = "assetDetails",schema = "assetManagement")

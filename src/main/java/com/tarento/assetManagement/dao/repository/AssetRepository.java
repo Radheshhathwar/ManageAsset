@@ -10,4 +10,5 @@ import java.util.List;
 public interface AssetRepository extends JpaRepository<Asset, Integer> {
 	Asset getAssetById(Integer id);
 	List<Asset> getAssetByStatus(String status);
+	List<Asset> getAssetByOwner(Integer owner);
 }
