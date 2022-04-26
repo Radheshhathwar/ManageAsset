@@ -1,0 +1,538 @@
+swagger: "2.0"
+info:
+  description: "This is a sample Asset management server.\n You can find out more about Tarento at [https://www.tarento.com/](https://www.tarento.com/)\n or on twitter [https://www.linkedin.com/company/tarento-group/mycompany/](https://www.linkedin.com/company/tarento-group/mycompany/).\n For this sample, you can use the api key `special-key` to test the authorization filters."
+  version: "1.0.0"
+  title: "Asset Management"
+  termsOfService: "localhost:8084/terms"
+  contact:
+    email: "hello@tarento.com"
+  license:
+    name: "Careers"
+    url: "https://www.tarento.com/careers/"
+host: "localhost:8084"
+basePath: "/org/v1"
+tags:
+- name: "Admin"
+  description: "Admin services on the assets"
+- name: "User"
+  description: "Operations performed by user"
+- name: "Approver"
+  description: "Response by Manager/Super admin"  
+schemes:
+- "http"
+paths:
+  /admin/asset/{id}:
+     get:
+      tags:
+      - "Admin"
+      summary: "Get asset by asset id"
+      description: "Enter the asset id to find out the details of the assets"
+      operationId: "getAssetById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id of asset,details to be fetched "
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK - successfully found the asset"
+          schema:
+            $ref: '#/definitions/AddAsset'
+        "400":
+          description: "Bad request - Invalid assetId supplied"
+        "404":
+          description: "Asset not found"
+        "500":
+          description: "Internal server error"
+      security:
+      - asset_auth:
+        - "read:assets"    
+      - api_key: []
+      
+  /admin/asset/save:
+      post:
+        tags:
+        - "Admin"
+        summary: "Add asset to the system"
+        description: "Add the asset details to the system"
+        operationId: "saveAsset"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Add asset object"
+          required: true
+          schema:
+            $ref: "#/definitions/AddAsset"
+        responses:
+          200:
+            description: "OK - successfully added the asset"
+            schema:
+              $ref: '#/definitions/Asset'
+          "400":
+            description: "Bad request - Invalid details supplied"
+          "500":
+            description: "Internal server error"
+            
+          
+  /admin/asset/update/{id}:
+      patch:
+        tags:
+        - "Admin"
+        summary: "Update assets by id"
+        description: "Update the asset details present in the system"
+        operationId: "updateAssetById"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "The id of asset,details to be updated "
+          required: true
+          type: "number"
+        - in: "body"
+          name: "body"
+          description: "Updated asset object"
+          required: true
+          schema:
+            $ref: "#/definitions/Update"
+        responses:
+          200:
+            description: "OK - successfully updated the asset"
+            schema:
+              $ref: '#/definitions/AddAsset'
+          "400":
+            description: "Bad request - Invalid details supplied"
+          "404":
+            description: "Asset not found"
+          "500":
+            description: "Internal server error"
+  
+  /admin/asset/assign:
+      post:
+        tags:
+        - "Admin"
+        summary: "assign the asset to the requested user"
+        description: "When user request for asset the request is analysed and then approved, once approved the asset is assigned to the user"
+        operationId: "assignAsset"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Assigned asset details is updated in asset table according to user details"
+          required: true
+          schema:
+            $ref: '#/definitions/Assign'
+        responses:
+          200:
+            description: "OK - successfully assigned the asset"
+          "400":
+            description: "Bad request - Invalid asset parameter supplied"
+          "500":
+            description: "Internal server error"
+          
+ 
+  /admin/asset/unAssigned:
+      get:
+        tags:
+        - "Admin"
+        summary: "get the list of all unassigned asset"
+        description: "Fetch all the unassigned asset from the system"
+        operationId: "getUnassignedAsset"
+        produces:
+        - "application/json"
+        responses:
+          200:
+            description: "OK - successfully found the unassigned asset"
+            schema:
+              $ref: '#/definitions/GetAssets'
+          "400":
+            description: "Invalid request supplied"
+          "500":
+            description: "Internal server error"
+            
+  /admin/asset/defect/{status}:
+      get:
+        tags:
+        - "Admin"
+        summary: "get the list of all damaged/lost asset"
+        description: "Fetch all the damaged/lost asset from the system"
+        operationId: "getDefectAsset"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "path"
+          required: true
+          type: "string"
+          name: "status"
+          description: "Status include lost/damaged"
+        responses:
+          200:
+            description: "OK - successfully found the damaged asset"
+            schema:
+              $ref: '#/definitions/GetAssets'
+          "400":
+            description: "Invalid request supplied"
+          "500":
+            description: "Internal server error"
+            
+
+            
+  /admin/asset/action:
+      post:
+        tags:
+        - "Admin"
+        summary: "Actions taken on lost/damaged assets"
+        description: "Action taken when user has lost/damaged the assets"
+        operationId: "action"
+        produces:
+        - "application/json"
+        parameters:
+          - name: body
+            in: body
+            description: "userId, assetId, actions and comments on the action taken"
+            schema:
+              $ref: '#/definitions/AssetAction'
+        responses:
+          200:
+            description: "OK - successful action taken against the asset"
+          400:
+            description: "Invalid action supplied"
+          500:
+            description: "Internal server error"
+            
+            
+  /user/asset/request:
+      post:
+        tags:
+        - "User"
+        summary: "User request for asset"
+        description: "User raise request to get the required asset"
+        operationId: "request"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "User id along with type and description of asset required"
+          required: true
+          schema:
+            $ref: '#/definitions/Request'
+        responses:
+          200:
+            description: "OK - successfully raised the request for the asset"
+          "400":
+            description: "Invalid request supplied"
+          "500":
+            description: "Internal server error"
+             
+  /user/asset/return:
+      post:
+        tags:
+        - "User"
+        summary: "User request to return asset"
+        description: "User request to return the asset"
+        operationId: "return"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "User id along with assetId and message is required"
+          required: true
+          schema:
+            $ref: '#/definitions/Return'
+        responses:
+          200:
+            description: "OK - successfully raised the request to return the asset"
+          "400":
+            description: "Invalid request supplied"
+          "500":
+            description: "Internal server error"
+             
+  /user/asset/lost:
+      post:
+        tags:
+        - "User"
+        summary: "User request to claim asset as lost/damaged"
+        description: "User reports to company regarding the status of the asset"
+        operationId: "claim"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "User id along with assetId is and status of asset is required"
+          required: true
+          schema:
+            $ref: '#/definitions/UserAssetStatus'
+        responses:
+          200:
+            description: "OK - successfully notified the lost/damage of asset"
+          "400":
+            description: "Invalid request supplied"
+          "500":
+            description: "Internal server error"
+             
+  /approver/asset/manage:
+      post:
+        tags:
+        - "Approver"
+        summary: "Approve/Disapprove user request for asset"
+        description: "When user raises request for the asset, the asset availability is checked and then the asset is approved/rejected for alloting"
+        operationId: "manage"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "action either approve or reject"
+          required: true
+          schema:
+              $ref: '#/definitions/Manage'
+        responses:
+          200:
+            description: "OK - successfully managed the request"
+          "400":
+            description: "Invalid request supplied"
+          "500":
+            description: "Internal server error"
+        
+  /approver/asset/{projectId}:
+      get:
+        tags:
+        - "Approver"
+        summary: "get the list of all asset for the project"
+        description: "Fetch all the asset from the system for the project with id supplied"
+        operationId: "getAssetByProject"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "projectId"
+          in: "path"
+          description: "The asset details of a project that needs to be fetched. "
+          required: true
+          type: "number"
+        responses:
+          200:
+            description: "OK - successfully listed the asset"
+            schema:
+              $ref: '#/definitions/AssetByProject'
+          "400":
+            description: "Invalid projectId supplied"
+          "500":
+            description: "Internal server error"
+
+securityDefinitions:
+  asset_auth:
+    type: "oauth2"
+    authorizationUrl: "localhost:8084/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:assets: "modify assets in your account"
+      read:assets: "read your assets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"        
+  
+definitions:
+  Asset:
+    type: "object"
+    properties:
+      assetId:
+        type: integer
+      type:
+        type: string
+        enum:
+        - "Laptop"
+        - "Mobile"
+        - "Charger"
+        - "Desktop"
+        - "CPU"
+      description:
+        type: string
+      brandName:
+        type: string
+      uniqueNumber:
+        type: string
+      modelNumber:
+        type: string
+      purchaseDate:
+        type: string
+        format: "date"
+      status:
+        type: string
+        description: "asset Status"
+        enum:
+        - "Good"
+        - "Damaged"
+        - "Lost"
+      warrantyExists:
+        type: boolean
+      warrantyEndDate:
+        type: string
+        format: "date"
+      owner:
+        type: integer
+        format: "int32"
+        
+  AddAsset:
+    type: "object"
+    properties:
+      type:
+        type: string
+        enum:
+        - "Laptop"
+        - "Mobile"
+        - "Charger"
+        - "Desktop"
+        - "CPU"
+      description:
+        type: string
+      brandName:
+        type: string
+      uniqueNumber:
+        type: string
+      modelNumber:
+        type: string
+      purchaseDate:
+        type: string
+        format: "date"
+      status:
+        type: string
+        description: "asset Status"
+        enum:
+        - "Good"
+        - "Damaged"
+        - "Lost"
+      warrantyExists:
+        type: boolean
+      warrantyEndDate:
+        type: string
+        format: "date"
+      owner:
+        type: integer
+        format: "int32"
+        
+  Update:
+    type: "object"
+    properties:
+      type:
+        type: string
+        enum:
+        - "Laptop"
+        - "Mobile"
+        - "Charger"
+        - "Desktop"
+        - "CPU"
+      description:
+        type: string
+      status:
+        type: string
+        description: "asset Status"
+        enum:
+        - "Good"
+        - "Damaged"
+        - "Lost"
+      owner:
+        type: integer
+        format: "int32"
+   
+  GetAssets:
+    type: object
+    properties:
+      assetId:
+        type: integer
+  
+        
+  Assign:
+    type: object
+    properties:
+      userId:
+        type: integer
+      assetId: 
+        type: integer
+        
+  Request:
+    type: object
+    properties:
+      userId:
+        type: integer
+      assetType:
+        type: string
+        enum:
+        - "Laptop"
+        - "Mobile"
+        - "Charger"
+        - "Desktop"
+        - "CPU"
+      description:
+        type: string
+      managerId:
+        type: integer
+        
+  AssetAction:
+    type: object
+    properties:
+      userId:
+        type: integer
+      assetId:
+        type: integer
+      action:
+        type: string
+        enum:
+        - "Pending"
+        - "Initiated"
+        - "Resolved"
+      comments:
+        type: string
+      
+  
+  Return:
+    type: object
+    properties:
+      userId:
+        type: integer
+      assetId:
+        type: integer
+      message:
+        type: string
+        
+  UserAssetStatus:
+    type: object
+    properties:
+      userId:
+        type: integer
+      assetId:
+        type: integer
+      assetStatus:
+        type: "string"
+        example: "lost"
+ 
+  Manage:
+    type: object
+    properties:
+      action:
+        type: string
+        enum:
+        - "approve"
+        - "reject"
+
+  AssetByProject:
+    type: object
+    properties:
+      assetId:
+        type: integer
+      userId:
+        type: integer
+
+        
+externalDocs:
+  description: "Find out more about Tarento"
+  url: "https://www.tarento.com"
