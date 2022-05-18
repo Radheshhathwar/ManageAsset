@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tarento.assetManagement.dao.model.RequestAsset;
-import com.tarento.assetManagement.provider.UserProvider;
+import com.tarento.assetManagement.dao.repository.UserAssetRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
-	UserProvider provider;
+	UserAssetRepository userRepository;
 	
-	public void requestAsset(RequestAsset request) throws Exception{
-        provider.requestAsset(request);
-    }
+	public void requestAsset(RequestAsset request){
+		userRepository.save(request);
+	}
 }

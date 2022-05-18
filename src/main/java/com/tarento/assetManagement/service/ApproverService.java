@@ -7,19 +7,21 @@ import org.springframework.stereotype.Service;
 
 import com.tarento.assetManagement.dao.model.Action;
 import com.tarento.assetManagement.dao.model.Asset;
-import com.tarento.assetManagement.provider.ApproverProvider;
+import com.tarento.assetManagement.dao.repository.AssetRepository;
+import com.tarento.assetManagement.dao.repository.UserRepository;
 
 @Service
 public class ApproverService {
-
 	@Autowired
-	ApproverProvider approverProvider;
-
-	public void manageAssetRequest(Action action) throws Exception {
-		approverProvider.manageAssetRequest(action);
+	UserRepository userRepository;
+	
+	@Autowired
+	AssetRepository assetRepository;	
+	
+	public void manageAssetRequest(Action action) {
+		userRepository.save(action);
 	}
-
 	public List<Asset> getAssetDetails(Integer projectId) throws Exception {
-		return approverProvider.getAssetDetails(projectId);
+		return assetRepository.getAssetByOwner(projectId);
 	}
 }

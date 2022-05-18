@@ -1,7 +1,5 @@
 package com.tarento.assetManagement.dao.dto;
 
-import javax.persistence.Entity;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +16,10 @@ public class UpdateAsset {
 	private String brandName;
 	private String uniqueNumber;
 	private String modelNumber;
-	private Date purchaseDate;
+	private String purchaseDate;
 	private String status;
 	private boolean warrantyExists;
-	private Date warrantyEndDate;
+	private String warrantyEndDate;
 	private Integer owner;
 
 	public String getType() {
@@ -64,11 +62,11 @@ public class UpdateAsset {
 		this.modelNumber = modelNumber;
 	}
 
-	public Date getPurchaseDate() {
+	public String getPurchaseDate() {
 		return purchaseDate;
 	}
 
-	public void setPurchaseDate(Date purchaseDate) {
+	public void setPurchaseDate(String purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
 
@@ -88,11 +86,11 @@ public class UpdateAsset {
 		this.warrantyExists = warrantyExists;
 	}
 
-	public Date getWarrantyEndDate() {
+	public String getWarrantyEndDate() {
 		return warrantyEndDate;
 	}
 
-	public void setWarrantyEndDate(Date warrantyEndDate) {
+	public void setWarrantyEndDate(String warrantyEndDate) {
 		this.warrantyEndDate = warrantyEndDate;
 	}
 

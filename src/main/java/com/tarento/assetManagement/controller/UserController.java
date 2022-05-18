@@ -28,7 +28,7 @@ public class UserController{
 			 userService.requestAsset(request);
 			return ResponseEntity.ok("Successfully raised request");
 		}catch (Exception e) {
-			e.fillInStackTrace();
+			e.getLocalizedMessage();
 		}
 		return ResponseEntity.notFound().build();
 	}

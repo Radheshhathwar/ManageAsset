@@ -34,7 +34,7 @@ public class ApproverController {
 			return ResponseEntity.ok("Successfully took action against asset request");
 		} catch (Exception e) {
 			logger.info("Error while managing request");
-			e.fillInStackTrace();
+			e.getStackTrace();
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -49,6 +49,7 @@ public class ApproverController {
 			}
 		} catch (Exception E) {
 			logger.info("Error while getting asset details");
+			E.getStackTrace();
 		}
 		return ResponseEntity.notFound().build();
 	}

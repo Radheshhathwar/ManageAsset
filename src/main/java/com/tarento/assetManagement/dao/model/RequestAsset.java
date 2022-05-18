@@ -5,7 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Builder;
+
+
 @Entity
+@Builder
 public class RequestAsset {
 
 	@Id
@@ -45,4 +49,15 @@ public class RequestAsset {
 	public void setManagerEmail(String managerEmail) {
 		this.managerEmail = managerEmail;
 	}
+	public RequestAsset(Integer requestId, Integer userId, String type, String description, String managerEmail) {
+		this.requestId = requestId;
+		this.userId = userId;
+		this.type = type;
+		this.description = description;
+		this.managerEmail = managerEmail;
+	}
+//	public static Object builder() {
+//		
+//		return null;
+//	}
 }
